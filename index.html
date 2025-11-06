@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Café Andino S.A.S.</title>
+  <style>
+    body {
+      background-color: #f5e9dc;
+      font-family: 'Segoe UI', sans-serif;
+      color: #3e2723;
+      margin: 40px;
+    }
+
+    h2 {
+      color: #4e342e;
+      border-bottom: 2px solid #795548;
+      padding-bottom: 8px;
+    }
+
+    .cafe-card {
+      background-color: #fff3e0;
+      border-left: 8px solid #6d4c41;
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .lote {
+      background-color: #fbe9e7;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin: 6px 0;
+    }
+
+    b {
+      color: #4e342e;
+    }
+
+    hr {
+      border: none;
+      height: 2px;
+      background-color: #795548;
+      margin: 15px 0;
+    }
+
+    h3 {
+      color: #5d4037;
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+<script>
+ 
+  let supervisor = prompt("Ingrese el nombre del supervisor:");
+  let otroDia = "si"; 
+
+  while (otroDia === "si") {
+
+      
+      let tipoCafe = parseInt(prompt(
+          "Seleccione el tipo de café:\n" +
+          "1. Suave Tradicional\n" +
+          "2. Intenso\n" +
+          "3. Exportación\n" +
+          "4. Orgánico\n" +
+          "5. Premium Especial"
+      ));
+
+      let nombreCafe = "";
+      let costoKg = 0;
+
+      switch (tipoCafe) {
+          case 1:
+              nombreCafe = "Suave Tradicional";
+              costoKg = 8000;
+              break;
+          case 2:
+              nombreCafe = "Intenso";
+              costoKg = 9000;
+              break;
+          case 3:
+              nombreCafe = "Exportación";
+              costoKg = 12000;
+              break;
+          case 4:
+              nombreCafe = "Orgánico";
+              costoKg = 13500;
+              break;
+          case 5:
+              nombreCafe = "Premium Especial";
+              costoKg = 15000;
+              break;
+          default:
+              alert("Tipo de café no válido");
+              continue;
+      }
+
+     
+      let lotes = [];
+      let continuar;
+
+      do {
+          let kilos = parseFloat(prompt(`Ingrese la cantidad de kilos procesados de ${nombreCafe}:`))
+          let defecto = parseFloat(prompt("Ingrese el porcentaje de granos defectuosos (%):"))
+        
+          let calidad = ""
+          if (defecto < 2) calidad = "Calidad excelente"
+          else if (defecto < 5) calidad = "Buena calidad"
+          else if (defecto < 8) calidad = "Aceptable"
+          else if (defecto < 10) calidad = "Deficiente"
+          else calidad = "Rechazado"
+
+          let costoLote = kilos * costoKg
+
+          lotes.push({
+              kilos: kilos,
+              defecto: defecto,
+              calidad: calidad,
+              costo: costoLote
+          });
+
+          continuar = prompt("¿Desea ingresar otro lote de este mismo café? (si/no)").toLowerCase()
+      } while (continuar === "si")
+
+      
+      document.write(`<div class="cafe-card">`)
+      document.write(`<h2> Café Andino S.A.S.</h2>`)
+      document.write(`<p><b>Supervisor:</b> ${supervisor}</p>`)
+      document.write(`<p><b>Tipo de café:</b> ${nombreCafe}</p>`)
+      document.write("<hr>")
+
+      let totalKilos = 0
+      let totalDefectuosos = 0
+      let totalCosto = 0
+
+      for (let i = 0; i < lotes.length; i++) {
+          let lote = lotes[i];
+          let kilosDefectuosos = lote.kilos * (lote.defecto / 100)
+
+          totalKilos += lote.kilos
+          totalDefectuosos += kilosDefectuosos
+          totalCosto += lote.costo
+
+          document.write(
+              `<div class="lote">` +
+              `<b>Lote ${i + 1}:</b> ${lote.kilos} kg | ${lote.defecto}% defectuosos | ` +
+              `${lote.calidad} | <b>Costo:</b> $${lote.costo.toLocaleString()}` +
+              `</div>`
+          );
+      }
+
+      let porcentajeDefectuosos = (totalDefectuosos / totalKilos) * 100
+
+      document.write("<hr>")
+      document.write(`<p><b>Total procesado:</b> ${totalKilos} kg</p>`)
+      document.write(`<p><b>Total defectuoso:</b> ${totalDefectuosos.toFixed(2)} kg</p>`)
+      document.write(`<p><b>Porcentaje total defectuoso:</b> ${porcentajeDefectuosos.toFixed(2)}%</p>`)
+      document.write(`<p><b>Costo total de producción:</b> $${totalCosto.toLocaleString()}</p>`)
+      document.write("</div>")
+
+      
+      otroDia = prompt("¿Desea registrar otro día de producción con otro tipo de café? (si/no)").toLowerCase() 
+  }
+
+  document.write("<h3>✔ Registro finalizado. ¡Gracias por usar el sistema Café Andino S.A.S.!</h3>")
+</script>
+</body>
+</html>
+
+</body>
+</html> 
